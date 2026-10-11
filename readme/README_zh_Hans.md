@@ -1,0 +1,52 @@
+# AstrBot 的 Qwen Image 插件
+
+通过自己的 Ace Data Cloud 账号，在 AstrBot 对话中生成或编辑单张 Qwen Image 3 图片。`qwen_image_generate` 提交一次任务，`qwen_image_get_task` 用相同 ID 查询到最终结果。
+
+[English guide](../README.md) · [Qwen Image 服务](https://platform.acedata.cloud/services/qwen-image) · [当前价格](https://platform.acedata.cloud/models)
+
+## 搜索与安装
+
+在 AstrBot WebUI 打开 **Extensions → Plugins → AstrBot Plugin Market**，搜索 **Qwen Image**。核对卡片名称 **Qwen Image by Ace Data Cloud**、作者 **acedatacloud** 和 [Qwen Image 服务图标](https://cdn.acedata.cloud/eff9c34a52.png)，安装后到 **Installed** 检查加载状态。
+
+AstrBot Cloud 官方上架尚未完成。源码合并发布后，可在 **Installed → Install (+) → Install from URL** 输入 `https://github.com/AceDataCloud/QwenImageAstrBot` 预览。URL 安装不代表官方市场已上架或安装已验证。
+
+## 配置 Key
+
+到 [Ace Data Cloud Applications](https://platform.acedata.cloud/console/applications) 复制 General application 的生成 API Key，或创建同时允许 `/qwen-image/images` 和 `/qwen-image/tasks` 的 Key。提交前检查当前价格和余额。在插件设置 **Ace Data Cloud generation API key with Qwen Image access** 中粘贴 Key 本身；不要加 `Bearer `，也不要使用 `platform-...` 管理 Token。AstrBot WebUI 会遮蔽字段，但数据目录会保存原值，请保护该目录。
+
+选择支持工具调用的聊天模型，在当前 Profile 和 Persona 中允许两个 Qwen Image 工具。
+
+## 只生成一次，再查同一任务
+
+向机器人发送：
+
+> 只调用一次 `qwen_image_generate`，生成中性背景上的陶瓷花瓶产品照。模型用 `qwen-image-3.0`，尺寸 `1024*1024`，告诉我 task ID。
+
+工具向 `POST /qwen-image/images` 提交一次异步任务，固定 `n: 1`，返回 `status: submitted` 和 task ID；此时并非最终图片。保留 ID，再问：
+
+> 用 `qwen_image_get_task` 查询原来的 `<task_id>`，告诉我状态和最终图片 URL，不要再次生成。
+
+若仍为 pending，稍后查询**同一 ID**。只有 `status: succeeded`、`success: true` 且返回最终 HTTPS 图片 URL 才表示完成。插件不会自动重试付费请求。
+
+若要编辑有处理权限的图片，将其公开 HTTPS 地址传为 `image_url`，在 `prompt` 描述修改。可选 `qwen-image-3.0` 或 `qwen-image-3.0-pro`；`size` 使用 `WIDTH*HEIGHT`，如 `1024*1536`。`watermark` 默认 false。首版只处理单张输出和至多一张参考图；批量输出、多参考图和高级提示词参数暂未包含。
+
+## 用量与排障
+
+在 Ace Data Cloud 用量页按返回的 trace ID 匹配。已完成的任务也可能返回公开 `cost` 字段，单位 Credits；以线上用量记录为准，不把预估当成实扣。任务查询只读取已有作业，不会再提交生成。
+
+| 现象 | 检查项 |
+| --- | --- |
+| 插件加载失败 | AstrBot 版本、**Failed to Load Plugins**、**Data & Logs → Logs**。 |
+| 看不到工具 | 插件启用、当前 Profile/Persona 允许两个工具、聊天模型支持工具调用。 |
+| HTTP 401/403 | Key 类型、两个 Allowed APIs 路径和账号权限。 |
+| 提交后网络错误 | 再次生成前查请求历史；超时请求可能已创建付费任务。 |
+| 任务 pending | 稍后查询同一个 task ID。 |
+| 任务 failed | 按 task ID 或 trace ID 查看请求历史。 |
+
+Key 只发送到 `https://api.acedata.cloud`，重定向会被拒绝。插件仅向模型返回最终图片链接和公开成本字段，不透出上游原始数据。运行只需 Python 标准库。
+
+## 已验证的本地运行与图标
+
+官方 AstrBot `v4.28.2` 的隔离实例注册了两个工具。ChatUI 用 `qwen-image-3.0` 提交一次 `1024*1024` 图片任务，并通过 `qwen_image_get_task` 查询同一 task ID，没有再次生成。首次任务查询遇到短暂连接错误；仅重试只读查询后得到终态成功。最终 PNG 为 HTTP 200、`image/png`，解码尺寸 1024×1024。生成 trace 精确匹配一条成功的 `/qwen-image/images` 用量，实扣 0.283834 Credits；完成任务返回的原价为 0.315371 Credits。详见[脱敏证据](../tests/e2e-results.json)。这仍是本地 editable 安装；Cloud 审核、官方市场安装及市场安装后的首次调用尚未完成。
+
+`logo.png` 是未经修改的 128×128 [当前 Qwen Image 服务图标](https://cdn.acedata.cloud/eff9c34a52.png)，SHA-256 `75759f1b8ea00704cf425489363db1d8ff1c9174e28857008e9e75298e91d5f4`。
