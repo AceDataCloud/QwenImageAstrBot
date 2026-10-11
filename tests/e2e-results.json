@@ -1,0 +1,31 @@
+{
+  "environment": {
+    "astrbot_version": "4.28.2",
+    "installation": "isolated editable local plugin installation",
+    "chat_model": "gpt-4.1-mini through the generic OpenAI-compatible source",
+    "marketplace_installation": "not tested; AstrBot Cloud listing pending"
+  },
+  "primary_case": {
+    "model": "qwen-image-3.0",
+    "size_requested": "1024*1024",
+    "generation_tool": "qwen_image_generate",
+    "generation_tool_calls": 1,
+    "lookup_tool": "qwen_image_get_task",
+    "lookup_tool_calls_in_chat": 2,
+    "lookup_note": "The first read-only lookup encountered a connection error; the second lookup on the same task ID succeeded. No second generation was submitted.",
+    "task_id": "6ce8139a-c164-4392-97ec-45a99aae3ef0",
+    "trace_id": "701f8363-d008-4a8d-855d-f1bc9d5ec443",
+    "terminal_status": "succeeded",
+    "image_count": 1,
+    "image_url": "https://platform2.cdn.acedata.cloud/qwen-image/0d3db670-ac22-4a5d-ae16-2c21f681a140.png",
+    "media_http_status": 200,
+    "media_content_type": "image/png",
+    "image_width": 1024,
+    "image_height": 1024,
+    "usage_api_path": "/qwen-image/images",
+    "usage_status_code": 200,
+    "task_list_amount_credits": 0.3153710247349823,
+    "usage_deducted_credits": 0.2838339222614841
+  },
+  "scope_limit": "Single-image text generation and same-task lookup were run through AstrBot chat. Editing and the Pro model were validated structurally but not generated. Official market installation remains open."
+}
