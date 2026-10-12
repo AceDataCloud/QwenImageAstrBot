@@ -2,7 +2,7 @@
 
 Generate or edit one Qwen Image 3 image in an AstrBot conversation through your own Ace Data Cloud account. `qwen_image_generate` submits one job, and `qwen_image_get_task` retrieves the same task until its final image is ready.
 
-[简体中文指南](readme/README_zh_Hans.md) · [Qwen Image service](https://platform.acedata.cloud/services/qwen-image) · [Current prices](https://platform.acedata.cloud/models)
+[简体中文指南](readme/README_zh_Hans.md) · [Qwen Image service](https://platform.acedata.cloud/services/qwen-image?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=qwenimageastrbot_readme_services_qwen_image) · [Current prices](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=qwenimageastrbot_readme_pricing)
 
 ## Find and install
 
@@ -12,7 +12,9 @@ The official AstrBot Cloud listing has not yet been published. After the source 
 
 ## Configure your key
 
-In [Ace Data Cloud Applications](https://platform.acedata.cloud/console/applications), copy a generation API key from your General application or create a key that permits both `/qwen-image/images` and `/qwen-image/tasks`. Check current pricing and your balance before submitting. Paste the key into the plugin's **Ace Data Cloud generation API key with Qwen Image access** setting. Do not add `Bearer ` or use a `platform-...` management token. AstrBot masks the field in WebUI but stores the original value in its data directory, which should be protected.
+New account? Register and sign in first. If the Applications page has no General application yet, choose **Initialize General Application**, then continue with the key steps below.
+
+In [Ace Data Cloud Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=qwenimageastrbot_readme_api_key), copy a generation API key from your General application or create a key that permits both `/qwen-image/images` and `/qwen-image/tasks`. Check current pricing and your balance before submitting. Paste the key into the plugin's **Ace Data Cloud generation API key with Qwen Image access** setting. Do not add `Bearer ` or use a `platform-...` management token. AstrBot masks the field in WebUI but stores the original value in its data directory, which should be protected.
 
 Select a chat model that supports tool calling. Allow both Qwen Image tools in the conversation's profile and persona.
 

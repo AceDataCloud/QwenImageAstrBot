@@ -2,7 +2,7 @@
 
 通过自己的 Ace Data Cloud 账号，在 AstrBot 对话中生成或编辑单张 Qwen Image 3 图片。`qwen_image_generate` 提交一次任务，`qwen_image_get_task` 用相同 ID 查询到最终结果。
 
-[English guide](../README.md) · [Qwen Image 服务](https://platform.acedata.cloud/services/qwen-image) · [当前价格](https://platform.acedata.cloud/models)
+[English guide](../README.md) · [Qwen Image 服务](https://platform.acedata.cloud/services/qwen-image?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=qwenimageastrbot_readme_services_qwen_image) · [当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=qwenimageastrbot_readme_pricing)
 
 ## 搜索与安装
 
@@ -12,7 +12,9 @@ AstrBot Cloud 官方上架尚未完成。源码合并发布后，可在 **Instal
 
 ## 配置 Key
 
-到 [Ace Data Cloud Applications](https://platform.acedata.cloud/console/applications) 复制 General application 的生成 API Key，或创建同时允许 `/qwen-image/images` 和 `/qwen-image/tasks` 的 Key。提交前检查当前价格和余额。在插件设置 **Ace Data Cloud generation API key with Qwen Image access** 中粘贴 Key 本身；不要加 `Bearer `，也不要使用 `platform-...` 管理 Token。AstrBot WebUI 会遮蔽字段，但数据目录会保存原值，请保护该目录。
+首次使用请先注册并登录；如果应用页还没有通用应用，点击 **初始化通用应用（Initialize General Application）**，再按下面步骤管理密钥。
+
+到 [Ace Data Cloud Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=qwenimageastrbot_readme_api_key) 复制 General application 的生成 API Key，或创建同时允许 `/qwen-image/images` 和 `/qwen-image/tasks` 的 Key。提交前检查当前价格和余额。在插件设置 **Ace Data Cloud generation API key with Qwen Image access** 中粘贴 Key 本身；不要加 `Bearer `，也不要使用 `platform-...` 管理 Token。AstrBot WebUI 会遮蔽字段，但数据目录会保存原值，请保护该目录。
 
 选择支持工具调用的聊天模型，在当前 Profile 和 Persona 中允许两个 Qwen Image 工具。
 
