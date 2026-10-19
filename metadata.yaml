@@ -2,7 +2,7 @@ name: astrbot_plugin_qwen_image_acedatacloud
 display_name: Qwen Image by Ace Data Cloud
 short_desc: Generate or edit one Qwen Image and retrieve the final result in chat.
 desc: Submit one Qwen Image 3 job through your Ace Data Cloud account, then query the same task ID for its final image URL.
-version: 0.1.0
+version: 0.1.1
 author: acedatacloud
 repo: https://github.com/AceDataCloud/QwenImageAstrBot
 astrbot_version: ">=4.28.2,<5"
